@@ -19,7 +19,9 @@ return new class extends Migration
             $table->string('address');
             $table->string('phone');
             $table->string('email');
-            $table->decimal('salary', 10, 2);
+            $table->decimal('salary', 15, 2);
+            $table->date('join_date')->nullable();
+            $table->string('profile_picture')->nullable();
             $table->timestamps();
         });
     }

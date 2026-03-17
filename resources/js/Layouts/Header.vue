@@ -1,21 +1,18 @@
 <template>
     <header class="h-20 w-full bg-white border-b border-gray-200 shadow-sm shadow-sm px-8">
-        <div class="flex justify-between items-center h-full">
-            <div>
-                <h2 class="text-sm font-medium text-gray-400">Selamat Datang kembali,</h2>
-                <p class="text-xs text-gray-400">{{ currentDate }}</p>
+        <div class="flex justify-between items-center h-full gap-4">
+            <div class="flex items-center gap-4">
+                <button @click="$emit('toggle-sidebar')" class="lg:hidden w-10 h-10 flex items-center justify-center rounded-xl bg-gray-50 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 transition-all duration-200">
+                    <i class="bi bi-list text-2xl"></i>
+                </button>
+                <div class="hidden sm:block">
+                    <h2 class="text-sm font-medium text-gray-400 leading-none mb-1">Selamat Datang kembali,</h2>
+                    <p class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">{{ currentDate }}</p>
+                </div>
             </div>
 
             <div class="flex items-center gap-6">
                 <div class="flex items-center gap-3 border-r border-gray-200 pr-6">
-                    <button v-if="router.currentRoute.value.path !== '/booking'" @click="goToBooking"
-                        class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold rounded-lg shadow-sm transition-colors duration-200 mr-2">
-                        Pesan Tiket
-                    </button>
-                    <button v-else @click="goToDashboard"
-                        class="px-4 py-2 bg-gray-800 hover:bg-gray-900 text-white text-sm font-semibold rounded-lg shadow-sm transition-colors duration-200 mr-2">
-                        Mode Dashboard
-                    </button>
 
                     <div class="text-right hidden sm:block">
                         <h1 class="text-sm font-bold text-gray-800 leading-none mb-1">{{ user || 'Admin' }}</h1>
@@ -46,9 +43,9 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
+const emit = defineEmits(['toggle-sidebar']);
 const user = ref(localStorage.getItem('user'));
 
-// Tambahan: Menampilkan tanggal hari ini
 const currentDate = new Date().toLocaleDateString('id-ID', {
     weekday: 'long',
     year: 'numeric',
@@ -71,7 +68,6 @@ function goToDashboard() {
 </script>
 
 <style scoped>
-/* Pastikan font terlihat tajam */
 header {
     -webkit-font-smoothing: antialiased;
 }

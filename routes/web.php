@@ -48,4 +48,17 @@ Route::get('/test-booking', function (\Illuminate\Http\Request $request) {
     return response()->json($controller->store($req)->getData());
 });
 
+use App\Http\Controllers\EmployeeController;
+
+Route::prefix('employees-management')->group(function () {
+    Route::get('/', [EmployeeController::class, 'index'])->name('employees.index');
+    Route::get('/list', [EmployeeController::class, 'list'])->name('employees.list');
+    Route::post('/store', [EmployeeController::class, 'store'])->name('employees.store');
+    Route::get('/{employee}', [EmployeeController::class, 'show'])->name('employees.show');
+    Route::post('/{employee}/update', [EmployeeController::class, 'update'])->name('employees.update');
+    Route::delete('/{employee}', [EmployeeController::class, 'destroy'])->name('employees.destroy');
+    Route::get('/positions/list-all-divisions', [EmployeeController::class, 'listDivisions'])->name('employees.divisions.all');
+    Route::get('/positions/{division}', [EmployeeController::class, 'getPositions'])->name('employees.positions');
+});
+
 Route::view('/{any}', 'welcome')->where('any', '.*');

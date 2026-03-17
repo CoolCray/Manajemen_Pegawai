@@ -1,68 +1,67 @@
 <template>
-    <div @click.self="$emit('close')"
-        class="fixed inset-0 z-50 flex items-center bg-black/20 justify-center bg-opacity-50 backdrop-blur-sm px-4">
-
-        <div class="bg-white rounded-xl shadow-2xl w-full max-w-md overflow-hidden">
-
-            <header class="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50">
-                <h2 class="text-lg font-bold text-gray-800">{{ judul }}</h2>
-                <button type="button" @click="$emit('close')"
-                    class="text-gray-400 hover:text-red-500 text-2xl font-semibold leading-none">&times;</button>
-            </header>
-
-            <main class="p-6">
-                <form @submit.prevent="submitForm" class="space-y-4">
-
+    <div v-show="showModal" class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900/40 backdrop-blur-md p-2 sm:p-4 animate-in fade-in duration-300">
+        <div class="relative w-full max-w-lg transform transition-all animate-in zoom-in-95 duration-300">
+            <div class="bg-white rounded-2xl sm:rounded-[2.5rem] shadow-2xl overflow-hidden shadow-indigo-200/20 flex flex-col border border-white/40">
+                <div class="px-6 sm:px-8 py-4 sm:py-6 border-b border-gray-50 flex justify-between items-center bg-white/50 backdrop-blur-sm shrink-0">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Username</label>
-                        <input  v-model="username" type="text" placeholder="Masukkan username"
-                            class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 transition">
+                        <h3 class="text-2xl font-black text-gray-900 tracking-tight">{{ judul }}</h3>
+                        <p class="text-[10px] font-bold text-gray-400 mt-0.5 uppercase tracking-widest flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-indigo-500"></span>
+                            Lengkapi informasi akun di bawah ini
+                        </p>
                     </div>
+                    <button @click="$emit('close')" class="w-10 h-10 flex items-center justify-center rounded-2xl text-gray-400 hover:text-gray-900 hover:bg-gray-100 transition-all duration-200">
+                        <i class="bi bi-x-lg text-lg"></i>
+                    </button>
+                </div>
 
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                        <input v-model="email" type="email" placeholder="nama@email.com"
-                            class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 transition">
-                    </div>
+                <div class="p-6 sm:p-8 space-y-6">
+                    <form @submit.prevent="submitForm" class="space-y-5">
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-xs font-bold text-gray-500 uppercase mb-2 tracking-wide">Username</label>
+                                <div class="relative group">
 
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
-                        <input v-model="password" type="password" :placeholder="isEdit ? 'Masukan password jika ingin diubah' : 'Masukan Password'"
-                            class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 transition">
-                    </div>
+                                    <input v-model="username" type="text" placeholder="Masukkan username"
+                                        class="w-full bg-gray-50/50 border border-gray-100 rounded-2xl pl-11 pr-4 py-3 text-sm focus:ring-4 focus:ring-indigo-500/5 focus:border-indigo-500 focus:bg-white outline-none transition-all">
+                                </div>
+                            </div>
 
-                </form>
-            </main>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-500 uppercase mb-2 tracking-wide">Email</label>
+                                <div class="relative group">
+                                    <input v-model="email" type="email" placeholder="nama@email.com"
+                                        class="w-full bg-gray-50/50 border border-gray-100 rounded-2xl pl-11 pr-4 py-3 text-sm focus:ring-4 focus:ring-indigo-500/5 focus:border-indigo-500 focus:bg-white outline-none transition-all">
+                                </div>
+                            </div>
 
-            <footer class="px-6 py-4 border-t border-gray-100 flex justify-end gap-3 bg-gray-50">
-                <button type="button" @click="$emit('close')"
-                    class="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-100 transition">
-                    Batal
-                </button>
-                <button type="submit"
-                    class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium shadow-sm transition"
-                    @click="submitForm">
-                    Simpan Data
-                </button>
-            </footer>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-500 uppercase mb-2 tracking-wide">Password</label>
+                                <div class="relative group">
+                                    <input v-model="password" type="password" :placeholder="isEdit ? 'Kosongkan jika tidak diubah' : 'Masukan Password'"
+                                        class="w-full bg-gray-50/50 border border-gray-100 rounded-2xl pl-11 pr-4 py-3 text-sm focus:ring-4 focus:ring-indigo-500/5 focus:border-indigo-500 focus:bg-white outline-none transition-all">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
 
+                <div class="px-6 sm:px-8 py-4 sm:py-6 bg-gray-50/50 border-t border-gray-100 flex flex-col sm:flex-row justify-end gap-3 shrink-0">
+                    <button type="button" @click="$emit('close')" 
+                        class="px-8 py-3 font-bold text-gray-400 hover:text-gray-900 transition-colors uppercase tracking-widest text-[10px] w-full sm:w-auto">Batal</button>
+                    <button @click="submitForm" type="submit"
+                        class="px-10 py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white font-black rounded-2xl shadow-xl shadow-indigo-100 transition-all transform hover:-translate-y-1 active:scale-95 uppercase tracking-widest text-[11px] w-full sm:w-auto">
+                        Simpan Data User
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 </template>
 
 <script setup>
 import { ref, computed, onMounted } from 'vue';
-
 import axios from 'axios';
-
-const judul = computed(() => {
-    return props.isEdit ? 'Ubah User' : 'Tambah User';
-});
-
-
-const username = ref('');
-const email = ref('');
-const password = ref('');
 
 const props = defineProps({
     showModal: Boolean,
@@ -72,29 +71,71 @@ const props = defineProps({
 
 const emit = defineEmits(['close', 'fetchUser']);
 
+const username = ref('');
+const email = ref('');
+const password = ref('');
+
+const judul = computed(() => {
+    return props.isEdit ? 'Ubah Data User' : 'Tambah User Baru';
+});
+
 onMounted(() => {
-    if(props.isEdit){
+    if(props.isEdit && props.userSelected){
         username.value = props.userSelected.username;
         email.value = props.userSelected.email;
-        password.value = props.userSelected.password;   
     }
-})
+});
 
 async function submitForm() {
-    try {
-        const response = await axios.post(props.isEdit ? `api/user/${props.userSelected.id}` : 'api/user', {
-            username: username.value,
-            email: email.value,
-            password: password.value
+    if (!username.value || !email.value || (!props.isEdit && !password.value)) {
+        Swal.fire({
+            title: 'Gagal!',
+            text: 'Harap lengkapi semua field yang wajib diisi.',
+            icon: 'error',
+            confirmButtonColor: '#4f46e5',
+            customClass: {
+                popup: 'rounded-[2rem] border-none shadow-2xl',
+                confirmButton: 'rounded-xl px-6 py-3 font-bold'
+            }
         });
-        if(response.status === 200){
+        return;
+    }
 
-            alert('User berhasil ' + (props.isEdit ? 'diupdate' : 'ditambahkan'));
+    try {
+        const payload = {
+            username: username.value,
+            email: email.value
+        };
+        if (password.value) payload.password = password.value;
+
+        const response = await axios.post(props.isEdit ? `api/user/${props.userSelected.id}` : 'api/user', payload);
+        
+        if(response.status === 200 || response.status === 201){
+            Swal.fire({
+                title: 'Berhasil!',
+                text: 'User berhasil ' + (props.isEdit ? 'diupdate' : 'ditambahkan'),
+                icon: 'success',
+                confirmButtonColor: '#4f46e5',
+                customClass: {
+                    popup: 'rounded-[2rem] border-none shadow-2xl',
+                    confirmButton: 'rounded-xl px-6 py-3 font-bold'
+                }
+            });
             emit('close');
             emit('fetchUser');
         }
     } catch (error) {
         console.error(error);
+        Swal.fire({
+            title: 'Error!',
+            text: error.response?.data?.message || 'Terjadi kesalahan sistem.',
+            icon: 'error',
+            confirmButtonColor: '#4f46e5',
+            customClass: {
+                popup: 'rounded-[2rem] border-none shadow-2xl',
+                confirmButton: 'rounded-xl px-6 py-3 font-bold'
+            }
+        });
     }
 };
 </script>

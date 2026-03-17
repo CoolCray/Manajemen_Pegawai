@@ -2,6 +2,7 @@
     <div class="flex flex-col justify-center items-center h-screen">
         <div class="p-10 rounded-lg bg-white xl:w-96 lg:w-80 md:w-72 w-64 shadow-lg flex flex-col gap-8">
             <header class="flex flex-col items-center justify-center text-center">
+                <img src="https://images.glints.com/unsafe/glints-dashboard.oss-ap-southeast-1.aliyuncs.com/company-logo/9260d9778d98342935935d60549c65c7.png" alt="Company Logo" class="h-10 w-auto object-contain ">
                 <h1 class="font-semibold text-2xl text-center">Sistem Pegawai</h1>
             </header>
 

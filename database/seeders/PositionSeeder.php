@@ -2,41 +2,35 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Position;
+use App\Models\Division;
 
 class PositionSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        Position::create([
-            'name' => 'Admin',
-            'division_id' => 1,
-        ]);
+        $it = Division::where('name', 'IT Department')->first();
+        $hr = Division::where('name', 'Human Resources')->first();
+        $finance = Division::where('name', 'Finance')->first();
+        $marketing = Division::where('name', 'Marketing')->first();
+        $ops = Division::where('name', 'Operations')->first();
 
-        Position::create([
-            'division_id' => 1,
-            'name' => 'Fullstack Developer',
-        ]);
+        $positions = [
+            ['name' => 'Software Engineer', 'division_id' => $it->id],
+            ['name' => 'System Analyst', 'division_id' => $it->id],
+            ['name' => 'IT Support', 'division_id' => $it->id],
+            ['name' => 'HR Manager', 'division_id' => $hr->id],
+            ['name' => 'Recruiter', 'division_id' => $hr->id],
+            ['name' => 'Accountant', 'division_id' => $finance->id],
+            ['name' => 'Financial Analyst', 'division_id' => $finance->id],
+            ['name' => 'Marketing Specialist', 'division_id' => $marketing->id],
+            ['name' => 'Content Creator', 'division_id' => $marketing->id],
+            ['name' => 'Operations Manager', 'division_id' => $ops->id],
+        ];
 
-        Position::create([
-            'division_id' => 1,
-            'name' => 'System Administrator',
-        ]);
-
-
-        Position::create([
-            'division_id' => 2,
-            'name' => 'HR Manager',
-        ]);
-
-        Position::create([
-            'division_id' => 3,
-            'name' => 'Accountant',
-        ]);
+        foreach ($positions as $position) {
+            Position::create($position);
+        }
     }
 }
